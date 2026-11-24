@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Doughmestic Dough Calculator</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='47' fill='%23FFF6E2' stroke='%237C150D' stroke-width='4'/%3E%3Cpath d='M66 40 V24 H75 V48' fill='%237C150D'/%3E%3Cpath d='M68 19 q-4 -5 1 -9 q4 -4 0 -8 M74 19 q-4 -5 1 -9' fill='none' stroke='%23C9B9A6' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M17 52 L50 23 L83 52' fill='none' stroke='%237C150D' stroke-width='13' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M17 52 L50 23 L83 52' fill='none' stroke='%23E9B060' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='66' r='21' fill='%23E9B060' stroke='%237C150D' stroke-width='3'/%3E%3Ccircle cx='50' cy='66' r='15.5' fill='%23FFD24A'/%3E%3Ccircle cx='43' cy='61' r='4.2' fill='%23B92A1C'/%3E%3Ccircle cx='57' cy='63' r='4' fill='%23B92A1C'/%3E%3Ccircle cx='48' cy='74' r='3.8' fill='%23B92A1C'/%3E%3Cpath d='M55 72 q5 -1 6 -6 q-5 0 -6 6 z' fill='%232E7D32'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23D7351F%22/%3E%3Ctext x=%2250%22 y=%2274%22 text-anchor=%22middle%22 font-family=%22Georgia,serif%22 font-weight=%22900%22 font-size=%2272%22 fill=%22%23FFD24A%22%3ED%3C/text%3E%3Ccircle cx=%2276%22 cy=%2224%22 r=%2211%22 fill=%22%23B92A1C%22 stroke=%22%237C150D%22 stroke-width=%223%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@144,900,100,1&family=Lilita+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* VOICE everyday, playful pizzeria
    IDEA a neighbourhood pizzeria: sauce-red sign with melted cheese dripping off it, order ticket for the recipe
-   PICTURE the dough ball drawn large with its weight; logo is a house roof over a pizza (home + dough)
+   PICTURE the dough ball drawn large with its weight; logo is a stacked retro wordmark with a pepperoni dotting the i
    COLOUR mozzarella cream ground, tomato red sign, basil green support, cheese yellow and pepperoni red accents
    TYPE Lilita One (chunky sign lettering) + Nunito
    LAYOUT laptop: red sign band, then controls left and sticky result right; phone: sign, slim sticky result bar, controls, result */
@@ -46,11 +46,15 @@ body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--text); ov
 /* Sign */
 .sign { position: relative; background: var(--tomato); color: #FFF6E2; padding: 28px max(5vw, 16px) 34px; }
 .sign-in { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; gap: 18px 40px; flex-wrap: wrap; }
-.lockup { display: flex; align-items: center; gap: 16px; }
-.logo { width: 92px; height: 92px; flex: none; filter: drop-shadow(0 5px 0 rgba(90,10,5,.35)); }
-.wm { display: grid; }
-.brand { font-family: var(--display); font-size: clamp(40px, 7vw, 70px); line-height: .95; letter-spacing: -.01em; text-shadow: 0 4px 0 #8E1A0F; }
-.sub { font-weight: 800; font-size: 16px; color: var(--cheese); margin-top: 6px; }
+.lockup { display: block; }
+.wm { display: grid; font-family: "Fraunces", "Cooper Black", Georgia, serif; font-weight: 900; font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144; font-size: clamp(46px, 7vw, 70px); line-height: .8; letter-spacing: -.02em; color: var(--cheese); text-shadow: 0 .06em 0 #6E1209; }
+.wm > span { display: block; white-space: nowrap; }
+.wm .l2 { padding-left: .5em; }
+.wm i { display: inline-block; font-style: normal; position: relative; }
+.wm i:nth-child(odd) { transform: translateY(-.03em) rotate(-4deg); }
+.wm i:nth-child(even) { transform: translateY(.03em) rotate(3deg); }
+.wm .dot { position: absolute; left: 50%; top: .02em; width: .26em; height: .26em; margin-left: -.13em; border-radius: 50%; border: .03em solid var(--pep-dark); box-shadow: 0 .05em 0 #6E1209;
+  background: radial-gradient(circle at 32% 34%, var(--pep-dark) 0 12%, transparent 14%), radial-gradient(circle at 66% 60%, var(--pep-dark) 0 13%, transparent 15%), #CF3A26; }
 .intro { max-width: 42ch; }
 .intro h1 { font: 400 clamp(24px, 3.2vw, 34px)/1.05 var(--display); margin: 0; }
 .tag { margin: 6px 0 0; font-weight: 700; font-size: 16px; opacity: .95; }
@@ -191,10 +195,7 @@ footer { text-align: center; color: var(--muted); font-weight: 700; font-size: 1
 @media (max-width: 600px) {
   .sign { padding: 18px 16px 24px; }
   .sign-in { gap: 14px; }
-  .lockup { gap: 12px; }
-  .logo { width: 64px; height: 64px; }
-  .brand { font-size: 40px; }
-  .sub { font-size: 14px; margin-top: 3px; }
+  .wm { font-size: 46px; }
   .intro h1 { font-size: 24px; }
   .tag { font-size: 15px; }
   .wrap { padding-top: 70px; }
@@ -221,19 +222,8 @@ footer { text-align: center; color: var(--muted); font-weight: 700; font-size: 1
 <div class="gingham" aria-hidden="true"></div>
 <header class="sign">
   <div class="sign-in">
-    <div class="lockup" role="img" aria-label="Doughmestic, home-oven pizza">
-      <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
-<circle cx="50" cy="50" r="47" fill="#FFF6E2" stroke="#7C150D" stroke-width="4"/>
-<path d="M66 40 V24 H75 V48" fill="#7C150D"/>
-<path d="M68 19 q-4 -5 1 -9 q4 -4 0 -8 M74 19 q-4 -5 1 -9" fill="none" stroke="#C9B9A6" stroke-width="2.5" stroke-linecap="round"/>
-<path d="M17 52 L50 23 L83 52" fill="none" stroke="#7C150D" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M17 52 L50 23 L83 52" fill="none" stroke="#E9B060" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="50" cy="66" r="21" fill="#E9B060" stroke="#7C150D" stroke-width="3"/>
-<circle cx="50" cy="66" r="15.5" fill="#FFD24A"/>
-<circle cx="43" cy="61" r="4.2" fill="#B92A1C"/><circle cx="57" cy="63" r="4" fill="#B92A1C"/><circle cx="48" cy="74" r="3.8" fill="#B92A1C"/>
-<path d="M55 72 q5 -1 6 -6 q-5 0 -6 6 z" fill="#2E7D32"/>
-      </svg>
-      <div class="wm" aria-hidden="true"><span class="brand">Doughmestic</span><span class="sub">Home-oven pizza</span></div>
+    <div class="lockup" role="img" aria-label="Doughmestic">
+      <div class="wm" aria-hidden="true"><span class="l1"><i>D</i><i>o</i><i>u</i><i>g</i><i>h</i></span><span class="l2"><i>m</i><i>e</i><i>s</i><i>t</i><i>ı<b class="dot"></b></i><i>c</i></span></div>
     </div>
     <div class="intro">
       <h1>Pizza dough calculator</h1>
