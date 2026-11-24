@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Doughmestic Dough Calculator</title>
 <meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='47' fill='%23FFF6E2' stroke='%237C150D' stroke-width='4'/%3E%3Cpath d='M66 40 V24 H75 V48' fill='%237C150D'/%3E%3Cpath d='M68 19 q-4 -5 1 -9 q4 -4 0 -8 M74 19 q-4 -5 1 -9' fill='none' stroke='%23C9B9A6' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M17 52 L50 23 L83 52' fill='none' stroke='%237C150D' stroke-width='13' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M17 52 L50 23 L83 52' fill='none' stroke='%23E9B060' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='66' r='21' fill='%23E9B060' stroke='%237C150D' stroke-width='3'/%3E%3Ccircle cx='50' cy='66' r='15.5' fill='%23FFD24A'/%3E%3Ccircle cx='43' cy='61' r='4.2' fill='%23B92A1C'/%3E%3Ccircle cx='57' cy='63' r='4' fill='%23B92A1C'/%3E%3Ccircle cx='48' cy='74' r='3.8' fill='%23B92A1C'/%3E%3Cpath d='M55 72 q5 -1 6 -6 q-5 0 -6 6 z' fill='%232E7D32'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* VOICE everyday, playful pizzeria
    IDEA a neighbourhood pizzeria: sauce-red sign with melted cheese dripping off it, order ticket for the recipe
-   PICTURE the dough ball drawn large with its weight, cheese stretching off it whenever the number changes
+   PICTURE the dough ball drawn large with its weight; logo is a house roof over a pizza (home + dough)
    COLOUR mozzarella cream ground, tomato red sign, basil green support, cheese yellow and pepperoni red accents
    TYPE Lilita One (chunky sign lettering) + Nunito
    LAYOUT laptop: red sign band, then controls left and sticky result right; phone: sign, slim sticky result bar, controls, result */
@@ -44,10 +45,15 @@ body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--text); ov
 
 /* Sign */
 .sign { position: relative; background: var(--tomato); color: #FFF6E2; padding: 28px max(5vw, 16px) 34px; }
-.sign-in { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-.logo { width: 68px; height: 68px; flex: none; }
-.brand { font-family: var(--display); font-size: clamp(44px, 8vw, 72px); line-height: 1; letter-spacing: -.01em; margin: 0; text-shadow: 0 4px 0 rgba(0,0,0,.18); }
-.tag { margin: 4px 0 0; font-weight: 700; font-size: 17px; max-width: 52ch; opacity: .95; }
+.sign-in { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; gap: 18px 40px; flex-wrap: wrap; }
+.lockup { display: flex; align-items: center; gap: 16px; }
+.logo { width: 92px; height: 92px; flex: none; filter: drop-shadow(0 5px 0 rgba(90,10,5,.35)); }
+.wm { display: grid; }
+.brand { font-family: var(--display); font-size: clamp(40px, 7vw, 70px); line-height: .95; letter-spacing: -.01em; text-shadow: 0 4px 0 #8E1A0F; }
+.sub { font-weight: 800; font-size: 16px; color: var(--cheese); margin-top: 6px; }
+.intro { max-width: 42ch; }
+.intro h1 { font: 400 clamp(24px, 3.2vw, 34px)/1.05 var(--display); margin: 0; }
+.tag { margin: 6px 0 0; font-weight: 700; font-size: 16px; opacity: .95; }
 .drips { position: absolute; left: 0; right: 0; top: 100%; height: 64px; margin-top: -1px; pointer-events: none; z-index: 2; }
 .drips svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .drip { transform-box: fill-box; transform-origin: 50% 0; animation: ooze 4.5s ease-in-out infinite alternate; }
@@ -56,8 +62,10 @@ body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--text); ov
 .wrap { max-width: 1212px; margin: 0 auto; padding: 64px max(5vw, 16px) 48px; }
 
 /* Mobile result bar */
-.mbar { position: sticky; top: 0; z-index: 5; margin: -40px 0 18px; background: var(--ink); color: var(--bg); border-radius: 14px; padding: 10px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-weight: 700; box-shadow: 0 6px 0 rgba(0,0,0,.12); }
-.mbar b { font-family: var(--display); font-weight: 400; font-size: 26px; }
+.mbar { position: sticky; top: 8px; z-index: 5; margin: 0 0 16px; background: var(--ink); color: var(--bg); border-radius: 16px; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; box-shadow: 0 6px 0 rgba(0,0,0,.12); }
+.mbar b { display: block; font-family: var(--display); font-weight: 400; font-size: 28px; line-height: 1; white-space: nowrap; }
+.mbar small { display: block; font-size: 13px; font-weight: 700; opacity: .8; }
+.mbar .r { text-align: right; font-size: 14px; font-weight: 700; line-height: 1.35; }
 @media (min-width: 900px) { .mbar { display: none; } }
 
 .layout { display: grid; gap: 24px; }
@@ -74,7 +82,8 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 .ctl .label { margin: 0; }
 
 /* Pepperoni buttons */
-.peps { display: flex; flex-wrap: wrap; gap: 10px; }
+.peps { display: grid; grid-template-columns: repeat(6, minmax(0, 52px)); gap: 10px; }
+.peps .pep { width: 100%; height: auto; aspect-ratio: 1; }
 .pep, .seg span {
   --d: 50px;
   width: var(--d); height: var(--d); border-radius: 50%;
@@ -105,7 +114,6 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 .seg small { display: block; font-weight: 600; font-size: 13px; opacity: .85; }
 
 .row2 { display: grid; gap: 26px; }
-@media (min-width: 560px) { .row2 { grid-template-columns: 1fr 1fr; } }
 .stepper { display: flex; align-items: center; gap: 8px; }
 .stepper button { width: 46px; height: 46px; border-radius: 50%; font: 400 26px/1 var(--display); cursor: pointer; display: grid; place-items: center; padding: 0 0 3px; transition: transform .12s; }
 .stepper button:hover { transform: rotate(20deg) scale(1.06); }
@@ -152,6 +160,7 @@ hr { border: 0; border-top: 2px dashed var(--line); margin: 0; }
 table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 th { text-align: left; font-size: 13px; font-weight: 800; color: var(--muted); padding: 10px 0 6px; border-bottom: 2px dashed var(--line); }
 th.num, td.num { text-align: right; }
+th.num { padding-left: 12px; white-space: nowrap; }
 td { padding: 10px 0; border-bottom: 2px dotted var(--line); vertical-align: top; }
 tr:last-child td { border-bottom: 0; }
 td b { font-weight: 800; }
@@ -179,7 +188,32 @@ footer { text-align: center; color: var(--muted); font-weight: 700; font-size: 1
 .puff { position: absolute; width: var(--s); height: var(--s); margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2); border-radius: 50%; background: #fff; box-shadow: 0 0 6px rgba(255,255,255,.9); opacity: .9; animation: puff .75s ease-out forwards; }
 @keyframes puff { to { transform: translate(var(--x), var(--y)) scale(2.2); opacity: 0; } }
 
-@media (max-width: 600px) { .panel { padding: 18px; } .stats { gap: 6px; } .stat { padding: 10px; } }
+@media (max-width: 600px) {
+  .sign { padding: 18px 16px 24px; }
+  .sign-in { gap: 14px; }
+  .lockup { gap: 12px; }
+  .logo { width: 64px; height: 64px; }
+  .brand { font-size: 40px; }
+  .sub { font-size: 14px; margin-top: 3px; }
+  .intro h1 { font-size: 24px; }
+  .tag { font-size: 15px; }
+  .wrap { padding-top: 70px; }
+  .panel { padding: 16px; border-radius: 18px; }
+  .settings { gap: 22px; }
+  .peps { gap: 7px; }
+  .peps .pep { font-size: 13px; }
+  .seg.big span { --d: 68px; font-size: 14px; }
+  .stepper output { font-size: 28px; min-width: 76px; }
+  .ballrow { gap: 14px; }
+  .dough { width: 84px; height: 78px; }
+  .stats { gap: 6px; }
+  .stat { padding: 10px; }
+  .stat dd { font-size: 19px; }
+  .ticket { padding: 2px 12px 4px; }
+  ol.method li { grid-template-columns: 28px 1fr; gap: 10px; }
+  ol.method li::before { width: 28px; height: 28px; font-size: 15px; }
+  h2 { font-size: 26px; }
+}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -187,22 +221,30 @@ footer { text-align: center; color: var(--muted); font-weight: 700; font-size: 1
 <div class="gingham" aria-hidden="true"></div>
 <header class="sign">
   <div class="sign-in">
-    <svg class="logo" viewBox="0 0 68 68" aria-hidden="true">
-      <path d="M8 14 Q34 2 60 14 L36 64 Q34 67 32 64 Z" fill="#FFD24A" stroke="#7C150D" stroke-width="2.5" stroke-linejoin="round"/>
-      <path d="M6 13 Q34 0 62 13 L59 19 Q34 8 9 19 Z" fill="#E7B76A" stroke="#7C150D" stroke-width="2.5" stroke-linejoin="round"/>
-      <circle cx="26" cy="27" r="6" fill="#B92A1C"/><circle cx="42" cy="29" r="5.5" fill="#B92A1C"/><circle cx="34" cy="44" r="5" fill="#B92A1C"/>
-      <path d="M20 22 q2 6 -1 10 M47 23 q-1 5 2 8" stroke="#2E7D32" stroke-width="3" fill="none" stroke-linecap="round"/>
-    </svg>
-    <div>
-      <h1 class="brand">Doughmestic</h1>
-      <p class="tag">Pizza dough calculator. Pick your size, how many and how thick, and get exact weights for every ingredient.</p>
+    <div class="lockup" role="img" aria-label="Doughmestic, home-oven pizza">
+      <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
+<circle cx="50" cy="50" r="47" fill="#FFF6E2" stroke="#7C150D" stroke-width="4"/>
+<path d="M66 40 V24 H75 V48" fill="#7C150D"/>
+<path d="M68 19 q-4 -5 1 -9 q4 -4 0 -8 M74 19 q-4 -5 1 -9" fill="none" stroke="#C9B9A6" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M17 52 L50 23 L83 52" fill="none" stroke="#7C150D" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17 52 L50 23 L83 52" fill="none" stroke="#E9B060" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="50" cy="66" r="21" fill="#E9B060" stroke="#7C150D" stroke-width="3"/>
+<circle cx="50" cy="66" r="15.5" fill="#FFD24A"/>
+<circle cx="43" cy="61" r="4.2" fill="#B92A1C"/><circle cx="57" cy="63" r="4" fill="#B92A1C"/><circle cx="48" cy="74" r="3.8" fill="#B92A1C"/>
+<path d="M55 72 q5 -1 6 -6 q-5 0 -6 6 z" fill="#2E7D32"/>
+      </svg>
+      <div class="wm" aria-hidden="true"><span class="brand">Doughmestic</span><span class="sub">Home-oven pizza</span></div>
+    </div>
+    <div class="intro">
+      <h1>Pizza dough calculator</h1>
+      <p class="tag">Pick your size, how many and how thick. Get exact weights for every ingredient.</p>
     </div>
   </div>
   <div class="drips" aria-hidden="true"><svg id="drips"></svg></div>
 </header>
 
 <div class="wrap">
-  <div class="mbar" aria-hidden="true"><span id="mbarTxt"></span><b id="mbarBall"></b></div>
+  <div class="mbar" aria-hidden="true"><div><b id="mbarBall"></b><small>each dough ball</small></div><div class="r"><span id="mbarTxt"></span><br><span id="mbarMix"></span></div></div>
 
   <div class="layout">
     <form class="panel settings" id="form" autocomplete="off" onsubmit="return false">
@@ -242,7 +284,7 @@ footer { text-align: center; color: var(--muted); font-weight: 700; font-size: 1
 
       <label class="switch" for="beer">
         <input type="checkbox" id="beer">
-        <span class="txt"><b>Use lager</b><small>Swap some or all of the water for lager: a faster start and a malty flavour</small></span>
+        <span class="txt"><b>Use lager</b><small>Swap water for lager: faster start, malty flavour</small></span>
         <span class="track" aria-hidden="true"></span>
       </label>
 
@@ -484,7 +526,8 @@ function render() {
   const thickTxt = THICK[s.thick].name.toLowerCase();
   $("summary").textContent = `${s.count} × ${s.size}" ${thickTxt} · ${s.gf ? "gluten free · cold rest up to 48 h" : "cold ferment 2–4 days"}${s.beer ? " · lager" : ""}`;
   $("mbarTxt").textContent = `${s.count} × ${s.size}" ${thickTxt}`;
-  $("mbarBall").textContent = `${r.ball} g balls`;
+  $("mbarBall").textContent = `${r.ball} g`;
+  $("mbarMix").textContent = `${g(r.flour)} flour · ${g(r.liquid)} ${s.beer ? "liquid" : "water"}`;
 
   $("sFlour").textContent = g(r.flour);
   $("sWaterLabel").textContent = s.beer ? "Total liquid" : "Total water";
